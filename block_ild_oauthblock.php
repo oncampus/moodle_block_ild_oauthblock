@@ -61,15 +61,16 @@ class block_ild_oauthblock extends block_base {
 
         $content = '';
 
-        $content .= '<p>'.$this->config->description['text'].'</p>';
+        if (!isloggedin()) {
+            $content .= '<p>'.$this->config->description['text'].'</p>';
 
-		//$issuer = $DB->get_record('oauth2_issuer', array('id' => $this->config->issuer));
-		$id = $this->config->issuer;//isset($issuer->id) ? $issuer->id : -1;
-		$wantsurl = '%2F';
-		$sesskey = $USER->sesskey;
-		$linktext = (isset($this->config->linktext) and $this->config->linktext != '') ? format_string($this->config->linktext) : 'Login';
-        $content .= '<a href="'.$CFG->wwwroot.'/auth/oauth2/login.php?id='.$id.'&wantsurl='.$wantsurl.'&sesskey='.$sesskey.'">'.$linktext.'</a>';
-
+            //$issuer = $DB->get_record('oauth2_issuer', array('id' => $this->config->issuer));
+            $id = $this->config->issuer;//isset($issuer->id) ? $issuer->id : -1;
+            $wantsurl = '%2F';
+            $sesskey = $USER->sesskey;
+            $linktext = (isset($this->config->linktext) and $this->config->linktext != '') ? format_string($this->config->linktext) : 'Login';
+            $content .= '<a href="'.$CFG->wwwroot.'/auth/oauth2/login.php?id='.$id.'&wantsurl='.$wantsurl.'&sesskey='.$sesskey.'">'.$linktext.'</a>';
+        }
         $this->content = new stdClass();
         $this->content->text = $content;
 
