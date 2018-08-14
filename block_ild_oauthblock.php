@@ -61,7 +61,7 @@ class block_ild_oauthblock extends block_base {
 
         $content = '';
 
-        if (!isloggedin()) {
+        if (!isloggedin() or isguestuser()) {
             $content .= '<p>'.$this->config->description['text'].'</p>';
 
             //$issuer = $DB->get_record('oauth2_issuer', array('id' => $this->config->issuer));
