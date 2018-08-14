@@ -53,7 +53,7 @@ class block_ild_oauthblock extends block_base {
     }
 
     public function get_content() {
-        global $DB, $USER, $CFG;
+        global $SESSION, $USER, $CFG;
 
         if ($this->content !== null) {
             return $this->content;
@@ -64,9 +64,10 @@ class block_ild_oauthblock extends block_base {
         if (!isloggedin() or isguestuser()) {
             $content .= '<p>'.$this->config->description['text'].'</p>';
 
-            //$issuer = $DB->get_record('oauth2_issuer', array('id' => $this->config->issuer));
             $id = $this->config->issuer;//isset($issuer->id) ? $issuer->id : -1;
-            $wantsurl = '%2F';
+
+            //$wantsurl = '%2F';
+            $wantsurl = $this->page->url;
             $sesskey = $USER->sesskey;
             $linktext = (isset($this->config->linktext) and $this->config->linktext != '') ? format_string($this->config->linktext) : 'Login';
             $content .= '<a href="'.$CFG->wwwroot.'/auth/oauth2/login.php?id='.$id.'&wantsurl='.$wantsurl.'&sesskey='.$sesskey.'">'.$linktext.'</a>';
