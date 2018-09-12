@@ -62,7 +62,7 @@ class block_ild_oauthblock extends block_base {
         $content = '';
 
         if (!isloggedin() or isguestuser()) {
-            $content .= '<p>'.$this->config->description['text'].'</p>';
+            $content .= $this->config->description['text'];
 
             $id = $this->config->issuer;//isset($issuer->id) ? $issuer->id : -1;
 
@@ -70,7 +70,7 @@ class block_ild_oauthblock extends block_base {
             $wantsurl = $this->page->url;
             $sesskey = $USER->sesskey;
             $linktext = (isset($this->config->linktext) and $this->config->linktext != '') ? format_string($this->config->linktext) : 'Login';
-            $content .= '<a href="'.$CFG->wwwroot.'/auth/oauth2/login.php?id='.$id.'&wantsurl='.$wantsurl.'&sesskey='.$sesskey.'">'.$linktext.'</a>';
+            $content .= '<a id="loginbtn" class="btn" href="'.$CFG->wwwroot.'/auth/oauth2/login.php?id='.$id.'&wantsurl='.$wantsurl.'&sesskey='.$sesskey.'">'.$linktext.'</a>';
         }
         $this->content = new stdClass();
         $this->content->text = $content;
